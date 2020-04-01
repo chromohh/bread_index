@@ -11,16 +11,16 @@ public class UserRole {
     private int roleId;
 
     @Enumerated(EnumType.STRING)
-    private UserRoleEnums userRoleName;
+    private UserRoleEnums roleName;
 
     public UserRole(){}
 
-    public UserRole(UserRoleEnums userRoleName){
-        this.userRoleName = userRoleName;
+    public UserRole(UserRoleEnums roleName){
+        this.roleName = roleName;
     }
 
     public UserRoleEnums getUserRoleName() {
-        return userRoleName;
+        return roleName;
     }
 
     public int getRoleId() {
@@ -31,7 +31,7 @@ public class UserRole {
     public String toString() {
         final StringBuilder sb = new StringBuilder("UserRole{");
         sb.append("roleId=").append(roleId);
-        sb.append(", userRoleName=").append(userRoleName);
+        sb.append(", userRoleName=").append(roleName);
         sb.append('}');
         return sb.toString();
     }
@@ -42,11 +42,11 @@ public class UserRole {
         if (o == null || getClass() != o.getClass()) return false;
         UserRole userRole = (UserRole) o;
         return roleId == userRole.roleId &&
-                Objects.equals(userRoleName, userRole.userRoleName);
+                Objects.equals(roleName, userRole.roleName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(roleId, userRoleName);
+        return Objects.hash(roleId, roleName);
     }
 }
