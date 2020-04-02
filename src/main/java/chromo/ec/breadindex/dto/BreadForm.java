@@ -12,6 +12,8 @@ public class BreadForm {
     @Size(min = 100, max = 1500, message = "Please enter at least 100 characters")
     private String instructions;
 
+    private String author;
+
     public String getInstructions() {
         return instructions;
     }

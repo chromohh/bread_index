@@ -11,6 +11,7 @@ public class Bread {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int breadId;
     private String breadName;
+    private Boolean isApproved;
 
     @OneToOne(
             fetch = FetchType.LAZY,
@@ -35,11 +36,12 @@ public class Bread {
     @JoinColumn(name = "user_id")
     private User author;
 
-    public Bread(String breadName, Instruction instructions, List<IngredientAndAmount> ingredients, User author) {
+    public Bread(String breadName, Instruction instructions, List<IngredientAndAmount> ingredients, User author, boolean isApproved) {
         this.breadName = breadName;
         this.instructions = instructions;
         this.ingredients = ingredients;
         this.author = author;
+        this.isApproved = isApproved;
     }
 
     public Bread(String breadName){
@@ -92,6 +94,14 @@ public class Bread {
         this.author = author;
     }
 
+    public Boolean getApproved() {
+        return isApproved;
+    }
+
+    public void setApproved(Boolean approved) {
+        isApproved = approved;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -99,6 +109,7 @@ public class Bread {
         Bread bread = (Bread) o;
         return breadId == bread.breadId &&
                 Objects.equals(breadName, bread.breadName) &&
+                Objects.equals(isApproved, bread.isApproved) &&
                 Objects.equals(instructions, bread.instructions) &&
                 Objects.equals(ingredients, bread.ingredients) &&
                 Objects.equals(author, bread.author);
@@ -106,7 +117,7 @@ public class Bread {
 
     @Override
     public int hashCode() {
-        return Objects.hash(breadId, breadName, instructions, ingredients, author);
+        return Objects.hash(breadId, breadName, isApproved, instructions, ingredients, author);
     }
 
     @Override
@@ -114,6 +125,7 @@ public class Bread {
         final StringBuilder sb = new StringBuilder("Bread{");
         sb.append("breadId=").append(breadId);
         sb.append(", breadName='").append(breadName).append('\'');
+        sb.append(", isApproved=").append(isApproved);
         sb.append(", instructions=").append(instructions);
         sb.append(", ingredients=").append(ingredients);
         sb.append(", author=").append(author);
