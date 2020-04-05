@@ -8,14 +8,14 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UserRepo extends CrudRepository<User, Integer> {
 
     @Query("SELECT u FROM User u WHERE u.userName LIKE %:userName%")
-    List<Bread> findByUserName(@Param("userName") String Name);
+    List<User> findByUserName(@Param("userName") String Name);
 
-    @Query("SELECT u FROM User u WHERE u.email LIKE %:email%")
-    List<Bread> findByEmail(@Param("email") String email);
+    Optional<User> findByEmailIgnoreCase(@Param("email") String email);
 
 }

@@ -2,10 +2,12 @@ package chromo.ec.breadindex.service;
 
 import chromo.ec.breadindex.data.*;
 import chromo.ec.breadindex.dto.BreadForm;
+import chromo.ec.breadindex.dto.IngredientAndAmountForm;
 import chromo.ec.breadindex.dto.IngredientForm;
 import chromo.ec.breadindex.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -25,6 +27,7 @@ public class BreadServiceImpl implements BreadService{
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public Bread createBread(BreadForm breadForm) {
         return null;
     }
@@ -40,8 +43,9 @@ public class BreadServiceImpl implements BreadService{
     }
 
     @Override
-    public Optional<Ingredient> createIngredient(IngredientForm ingredientForm) {
-        return Optional.empty();
+    @Transactional(rollbackFor = RuntimeException.class)
+    public Ingredient createIngredient(IngredientForm ingredientForm) {
+        return null;
     }
 
     @Override
@@ -50,13 +54,14 @@ public class BreadServiceImpl implements BreadService{
     }
 
     @Override
-    public Optional<IngredientAndAmount> addIngredientToBread(String amount, Ingredient ingredient, Bread bread) {
+    public Optional<IngredientAndAmount> addIngredientToBread(IngredientAndAmountForm amount, Ingredient ingredient, Bread bread) {
         return Optional.empty();
     }
 
     @Override
-    public Optional<Instruction> createAndAddInstructions(Instruction Form, Bread bread) {
-        return Optional.empty();
+    @Transactional(rollbackFor = RuntimeException.class)
+    public Instruction createAndAddInstructions(Instruction Form, Bread bread) {
+        return null;
     }
 
     @Override
