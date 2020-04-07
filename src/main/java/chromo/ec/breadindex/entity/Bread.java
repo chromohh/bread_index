@@ -36,12 +36,19 @@ public class Bread {
     @JoinColumn(name = "user_id")
     private User author;
 
-    public Bread(String breadName, Instruction instructions, List<IngredientAndAmount> ingredients, User author, boolean isApproved) {
+    public Bread(String breadName, Instruction instructions, List<IngredientAndAmount> ingredients, User author) {
         this.breadName = breadName;
         this.instructions = instructions;
         this.ingredients = ingredients;
         this.author = author;
-        this.isApproved = isApproved;
+        this.isApproved = false;
+    }
+
+    public Bread(String breadName, Instruction instructions, User author) {
+        this.breadName = breadName;
+        this.instructions = instructions;
+        this.author = author;
+        this.isApproved = false;
     }
 
     public Bread(String breadName){

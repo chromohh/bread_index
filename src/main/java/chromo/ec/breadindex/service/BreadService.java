@@ -4,8 +4,8 @@ import chromo.ec.breadindex.dto.BreadForm;
 import chromo.ec.breadindex.dto.IngredientAndAmountForm;
 import chromo.ec.breadindex.dto.IngredientForm;
 import chromo.ec.breadindex.entity.*;
-import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface BreadService {
@@ -18,13 +18,11 @@ public interface BreadService {
 
     Ingredient createIngredient(IngredientForm ingredientForm);
 
-    Optional<Ingredient> saveIngredient(Ingredient ingredient);
+    Ingredient saveIngredient(Ingredient ingredient);
 
-    Optional<IngredientAndAmount> addIngredientToBread(IngredientAndAmountForm amount, Ingredient ingredient, Bread bread);
+    IngredientAndAmount addIngredientToBread(IngredientAndAmountForm amount, Ingredient ingredient, Bread bread);
 
-    Instruction createAndAddInstructions(Instruction Form, Bread bread);
-
-    Optional<Bread> findByBreadName(String breadName);
+    List<Bread> findByBreadName(String breadName);
 
     Optional<Bread> findById(int breadId);
 

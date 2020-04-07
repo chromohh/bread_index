@@ -1,5 +1,7 @@
 package chromo.ec.breadindex.dto;
 
+import chromo.ec.breadindex.entity.User;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -12,7 +14,7 @@ public class BreadForm {
     @Size(min = 100, max = 1500, message = "Please enter at least 100 characters")
     private String instructions;
 
-    private String author;
+    private User author;
 
     public String getInstructions() {
         return instructions;
@@ -20,5 +22,21 @@ public class BreadForm {
 
     public void setInstructions(String instructions) {
         this.instructions = instructions;
+    }
+
+    public String getBreadName() {
+        return breadName;
+    }
+
+    public void setBreadName(String breadName) {
+        this.breadName = breadName;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
     }
 }

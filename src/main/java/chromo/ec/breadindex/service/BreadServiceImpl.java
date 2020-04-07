@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -29,48 +30,56 @@ public class BreadServiceImpl implements BreadService{
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public Bread createBread(BreadForm breadForm) {
-        return null;
+        Instruction newInstructions = new Instruction(breadForm.getInstructions());
+        Bread newBread = new Bread (breadForm.getBreadName(), newInstructions, breadForm.getAuthor());
+
+        instructionRepoitory.save(newInstructions);
+
+        return breadRepository.save(newBread);
     }
 
     @Override
     public Bread save(Bread bread) {
-        return null;
+        return breadRepository.save(bread);
     }
 
     @Override
     public Optional<Bread> approveBread(Bread bread) {
-        return Optional.empty();
+        Optional<Bread> ret = Optional.ofNullable(bread);
+        ret.get().setApproved(true);
+        breadRepository.save(ret.get());
+        return ret;
     }
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public Ingredient createIngredient(IngredientForm ingredientForm) {
-        return null;
+        Ingredient newIngredient = new Ingredient(ingredientForm.getIngredientName());
+
+        return ingredientRepository.save(newIngredient);
     }
 
     @Override
-    public Optional<Ingredient> saveIngredient(Ingredient ingredient) {
-        return Optional.empty();
+    public Ingredient saveIngredient(Ingredient ingredient) {
+        return ingredientRepository.save(ingredient);
     }
 
     @Override
-    public Optional<IngredientAndAmount> addIngredientToBread(IngredientAndAmountForm amount, Ingredient ingredient, Bread bread) {
-        return Optional.empty();
+    public IngredientAndAmount addIngredientToBread(IngredientAndAmountForm amount, Ingredient ingredient, Bread bread) {
+        IngredientAndAmount newIngredientAndAmount =  new IngredientAndAmount(ingredient, amount.getAmount());
+        bread.addIngredient(newIngredientAndAmount);
+
+        breadRepository.save(bread);
+        return ingredientAndAmountRepository.save(newIngredientAndAmount);
     }
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
-    public Instruction createAndAddInstructions(Instruction Form, Bread bread) {
-        return null;
-    }
-
-    @Override
-    public Optional<Bread> findByBreadName(String breadName) {
-        return Optional.empty();
+    public List<Bread> findByBreadName(String breadName) {
+        return breadRepository.findByBreadNameContains(breadName);
     }
 
     @Override
     public Optional<Bread> findById(int breadId) {
-        return Optional.empty();
+        return breadRepository.findById(breadId);
     }
 }
