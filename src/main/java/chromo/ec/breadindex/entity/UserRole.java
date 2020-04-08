@@ -10,21 +10,24 @@ public class UserRole {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int roleId;
 
-    @Enumerated(EnumType.STRING)
-    private UserRoleEnums roleName;
+    private String roleName;
 
     public UserRole(){}
 
-    public UserRole(UserRoleEnums roleName){
+    public UserRole(String roleName) {
         this.roleName = roleName;
-    }
-
-    public UserRoleEnums getUserRoleName() {
-        return roleName;
     }
 
     public int getRoleId() {
         return roleId;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
     @Override

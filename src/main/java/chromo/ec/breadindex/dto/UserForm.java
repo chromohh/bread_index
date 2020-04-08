@@ -14,6 +14,7 @@ public class UserForm {
     @NotBlank(message = "Email is required")
     @Pattern(regexp = Regexs.EMAIL, message = "Enter a valid email..")
     private String email;
+    private boolean isAdmin;
 
     public String getUsername() {
         return username;
@@ -37,5 +38,13 @@ public class UserForm {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
     }
 }

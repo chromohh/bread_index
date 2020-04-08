@@ -36,11 +36,12 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public User registerNew(UserForm form) {
-        UserRole userRole = appRoleRepository.findByRoleName(UserRoleEnums.USER).orElseThrow(
-                () -> new IllegalArgumentException("Couldn't find role of " + UserRoleEnums.USER)
-        );
-
         Set<UserRole> roleSet = new HashSet<>();
+        if(form.isAdmin()){
+            UserRole admin = appRoleRepository.findTopByRoleName("ADMIN").orElseThrow(IllegalArgumentException::new);
+            roleSet.add(admin);
+        }
+        UserRole userRole = appRoleRepository.findTopByRoleName("USER").orElseThrow(IllegalArgumentException::new);
         roleSet.add(userRole);
 
         User newUser = new User(form.getUsername(), form.getEmail(), passwordEncoder.encode(form.getPassword()));

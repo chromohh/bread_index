@@ -31,7 +31,7 @@ public class UserDetailService implements UserDetailsService {
             User user = userOptional.get();
             Collection<GrantedAuthority> collection = new HashSet<>();
             for(UserRole role : user.getRoleSet()){
-                collection.add(new SimpleGrantedAuthority(role.getUserRoleName().name()));
+                collection.add(new SimpleGrantedAuthority(role.getRoleName()));
             }
          return new BreadUserDetails(user, collection);
 

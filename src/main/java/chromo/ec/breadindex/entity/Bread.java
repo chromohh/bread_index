@@ -53,6 +53,7 @@ public class Bread {
 
     public Bread(String breadName){
         this.breadName = breadName;
+        this.isApproved = false;
     }
 
     Bread(){}

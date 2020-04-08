@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface UserRoleRepo extends CrudRepository<UserRole, Integer> {
-    Optional<UserRole> findByRoleName(UserRoleEnums userRoleEnums);
+    Optional<UserRole> findTopByRoleName(String userRoleName);
 }
