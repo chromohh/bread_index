@@ -1,10 +1,13 @@
 package chromo.ec.breadindex.security;
 
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+@EnableWebSecurity
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception{
         httpSecurity.authorizeRequests()
                   .antMatchers("/admin/**").hasAuthority("ADMIN")
@@ -12,8 +15,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                   .antMatchers("/public/**").permitAll()
                 .and()
                   .formLogin()
-                  .loginPage("/public/login")
-                  .loginProcessingUrl("/public/login")
+                  .loginPage("/login")
+                  .loginProcessingUrl("/login")
                   .usernameParameter("email")
                   .passwordParameter("password")
                   .permitAll()

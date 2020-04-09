@@ -8,8 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class IndexController {
-
+public class AppUserController {
     private InstructionRepo instructionRepo;
     private BreadRepo breadRepo;
     private IngredientRepo ingredientRepo;
@@ -20,7 +19,7 @@ public class IndexController {
     private UserServiceImpl userService;
 
     @Autowired
-    public IndexController(InstructionRepo instructionRepo, BreadRepo breadRepo, IngredientRepo ingredientRepo, UserRoleRepo userRoleRepo, IngredientAndAmountRepo ingredientAndAmountRepo, UserRepo userRepo, BreadServiceImpl breadService, UserServiceImpl userService) {
+    public AppUserController(InstructionRepo instructionRepo, BreadRepo breadRepo, IngredientRepo ingredientRepo, UserRoleRepo userRoleRepo, IngredientAndAmountRepo ingredientAndAmountRepo, UserRepo userRepo, BreadServiceImpl breadService, UserServiceImpl userService) {
         this.instructionRepo = instructionRepo;
         this.breadRepo = breadRepo;
         this.ingredientRepo = ingredientRepo;
@@ -31,15 +30,8 @@ public class IndexController {
         this.userService = userService;
     }
 
-    @GetMapping("/index")
-    public String home(){
-        return "index";
+    @GetMapping("/login")
+    public String getLoginForm(){
+        return "login";
     }
-
-    @GetMapping("/create/user")
-    public String register(){
-        return "create-user";
-    }
-
-
 }

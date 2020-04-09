@@ -8,13 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.*;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.*;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
-
+@Service
 public class UserDetailService implements UserDetailsService {
     private UserRepo userRepository;
 
@@ -24,7 +26,7 @@ public class UserDetailService implements UserDetailsService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<User> userOptional = userRepository.findByEmailIgnoreCase(email);
         if(userOptional.isPresent()){
@@ -33,10 +35,9 @@ public class UserDetailService implements UserDetailsService {
             for(UserRole role : user.getRoleSet()){
                 collection.add(new SimpleGrantedAuthority(role.getRoleName()));
             }
-         return new BreadUserDetails(user, collection);
-
+            return new BreadUserDetails(user, collection);
         }else{
-            throw new UsernameNotFoundException("Couldn't find user with that email");
+            throw new UsernameNotFoundException("Couldn't find user with email " + email);
         }
     }
 }
