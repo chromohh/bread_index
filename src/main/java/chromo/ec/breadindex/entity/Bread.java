@@ -118,11 +118,11 @@ public class Bread {
         this.author = author;
     }
 
-    public Boolean getApproved() {
+    public Boolean getIsApproved() {
         return isApproved;
     }
 
-    public void setApproved(Boolean approved) {
+    public void setIsApproved(Boolean approved) {
         isApproved = approved;
     }
 

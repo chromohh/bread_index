@@ -17,27 +17,55 @@
             <p>No breads in storage</p>
         </div>
         <div th:unless="${breads.isEmpty()}">
-            <div class="col-md-12 mb-3" th:each="bread : ${breads}">
-                <div th:if="${bread.isApproved} == false">
+            <div class="col-md-11 mb-1">
                 <table class="table">
                     <thead>
                     <tr>
                         <th scope="col">Name</th>
-                        <th scope="col">Ingredients</th>
-                        <th scope="col">Instruction</th>
                         <th scope="col">Author</th>
+                        <th scope="col">Actions</th>
                     </tr>
                     </thead>
                 <tbody>
-                <tr>
+
+                <tr th:each="bread : ${breads}" th:if="${bread.isApproved} == true">
                     <td><span th:text="${bread.breadName}"></span></td>
-                    <td><span th:text="${bread.ingredients}"></span></td>
-                    <td><span th:text="${bread.instructions}"></span></td>
                     <td><span th:text="${bread.author}"></span></td>
+                    <td>
+                        <button type="button" class="btn btn-primary">view</button>
+                        <button sec:authorize="hasAuthority('ADMIN')" type="button" class="btn btn-dark">edit</button>
+                        <button sec:authorize="hasAuthority('ADMIN')" type="button" class="btn btn-danger">delete</button>
+                        <button sec:authorize="hasAuthority('ADMIN')" type="button" class="btn btn-danger">disapprove</button>
+                    </td>
                 </tr>
+
                 </table>
                 </tbody>
                 </div>
+
+            <div sec:authorize="hasAuthority('ADMIN')" class="col-md-11 mb-1">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Author</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="bread : ${breads}" th:if="${bread.isApproved} == false">
+                        <td><span th:text="${bread.breadName}"></span></td>
+                        <td><span th:text="${bread.author}"></span></td>
+                        <td>
+                            <button type="button" class="btn btn-primary">view</button>
+                            <button type="button" class="btn btn-dark">edit</button>
+                            <button type="button" class="btn btn-danger">delete</button>
+                            <button type="button" class="btn btn-success">approve</button>
+                        </td>
+                    </tr>
+                </table>
+                </tbody>
+            </div>
             </div>
         </form>
     </div>

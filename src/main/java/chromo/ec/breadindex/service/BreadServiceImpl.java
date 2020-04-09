@@ -46,7 +46,7 @@ public class BreadServiceImpl implements BreadService{
     @Override
     public Optional<Bread> approveBread(Bread bread) {
         Optional<Bread> ret = Optional.ofNullable(bread);
-        ret.get().setApproved(true);
+        ret.get().setIsApproved(true);
         breadRepository.save(ret.get());
         return ret;
     }
