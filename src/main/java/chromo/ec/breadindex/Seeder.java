@@ -45,15 +45,26 @@ public class Seeder implements CommandLineRunner {
             userRoleRepo.save(new UserRole("USER"));
         }catch (Exception e){  System.out.println("a");}
         try{
-            breadService.save(new Bread("Surdegs Limpa"));
+            breadService.save(new Bread("Surdegs Limpa", true));
+        }catch(Exception e){ System.out.println("a");}
+        try{
+            breadService.save(new Bread("Vallmofrö Bagles",true));
         }catch(Exception e){ System.out.println("a");}
         try{
             UserForm userForm = new UserForm();
             userForm.setAdmin(true);
-            userForm.setEmail("eddan@gmail.com");
-            userForm.setPassword("eddan");
-            userForm.setUsername("eddan");
+            userForm.setEmail("admin@gmail.com");
+            userForm.setPassword("admin");
+            userForm.setUsername("admin");
             userService.registerNew(userForm);
+        }catch(Exception e){ System.out.println("a"); }
+        try{
+            UserForm userForm1 = new UserForm();
+            userForm1.setAdmin(false);
+            userForm1.setEmail("user@gmail.com");
+            userForm1.setPassword("user1");
+            userForm1.setUsername("user1");
+            userService.registerNew(userForm1);
         }catch(Exception e){ System.out.println("a"); }
     }
 }

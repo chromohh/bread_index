@@ -10,7 +10,9 @@ public class Bread {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int breadId;
+    @Column(unique = true)
     private String breadName;
+
     private Boolean isApproved;
 
     @OneToOne(
@@ -36,6 +38,16 @@ public class Bread {
     @JoinColumn(name = "user_id")
     private User author;
 
+
+    public Bread(int breadId, String breadName, Boolean isApproved, Instruction instructions, List<IngredientAndAmount> ingredients, User author) {
+        this.breadId = breadId;
+        this.breadName = breadName;
+        this.isApproved = isApproved;
+        this.instructions = instructions;
+        this.ingredients = ingredients;
+        this.author = author;
+    }
+
     public Bread(String breadName, Instruction instructions, List<IngredientAndAmount> ingredients, User author) {
         this.breadName = breadName;
         this.instructions = instructions;
@@ -51,11 +63,15 @@ public class Bread {
         this.isApproved = false;
     }
 
-    public Bread(String breadName){
+    public Bread(String breadName, boolean isApproved){
         this.breadName = breadName;
         this.isApproved = false;
     }
 
+    public Bread(String breadName){
+        this.breadName = breadName;
+        this.isApproved = false;
+    }
     Bread(){}
 
     public int getBreadId() {

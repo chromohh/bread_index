@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <script defer th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script defer th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script defer th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.css}">
+    <meta charset="UTF-8">
+    <title>breads</title>
+</head>
+<body>
+<nav th:replace="navbar:: Navbar"></nav>
+<div class="container">
+    <div class = "card-body">
+        <div th:if="${breads.isEmpty()}">
+            <p>No breads in storage</p>
+        </div>
+        <div th:unless="${breads.isEmpty()}">
+            <div class="col-md-12 mb-3" th:each="bread : ${breads}">
+                <div th:if="${bread.isApproved} == false">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Ingredients</th>
+                        <th scope="col">Instruction</th>
+                        <th scope="col">Author</th>
+                    </tr>
+                    </thead>
+                <tbody>
+                <tr>
+                    <td><span th:text="${bread.breadName}"></span></td>
+                    <td><span th:text="${bread.ingredients}"></span></td>
+                    <td><span th:text="${bread.instructions}"></span></td>
+                    <td><span th:text="${bread.author}"></span></td>
+                </tr>
+                </table>
+                </tbody>
+                </div>
+            </div>
+        </form>
+    </div>
+   </div>
+</div>
+
+</body>
+</html>

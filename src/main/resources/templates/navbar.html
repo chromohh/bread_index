@@ -7,16 +7,16 @@
     <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.css}" />
     <meta charset="UTF-8">
-    <title>navbar</title>
+    <title>Navbar</title>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="Navbar">
         <ul class="navbar-nav">
             <li class="nav-item active">
-                <a class="btn btn-dark" th:href="@{/breads}">breads</a>
+                <a class="btn btn-dark" th:href="@{/breads}">Breads</a>
             </li>
             <li sec:authorize="isAuthenticated()" class="nav-item">
-                <a class="btn btn-dark" th:href="@{/users/breads/{email} (email=${#authentication.name})}">favorites</a>
+                <a class="btn btn-dark" th:href="@{/users/breads/{email} (email=${#authentication.name})}">Favorites</a>
             </li>
             <li sec:authorize="!isAuthenticated() || hasAuthority('ADMIN')") class="nav-item">
                 <a class="btn btn-info" th:href="@{/create/user}">Register</a>
@@ -24,11 +24,15 @@
             <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
                 <a class="btn btn-dark" th:href="@{/add/ingredient}">Add ingredient</a>
             </li>
-            <div sec:authorize="isAuthenticated()">
-                <li sec:authorize="hasAuthority('ADMIN')">
-                    <a class="btn btn-dark" th:href="@{/users">View users</a>
-                </li>
-            </div>
+            <li sec:authorize="hasAuthority('ADMIN')">
+                    <a class="btn btn-dark" th:href="@{/admin/users}">View users</a>
+            </li>
+            <li sec:authorize="hasAuthority('ADMIN') || hasAuthority('USER')">
+                <a class="btn btn-dark" th:href="@{/users/request}">Request Bread</a>
+            </li>
+            <li sec:authorize="hasAuthority('ADMIN')">
+                <a class="btn btn-dark" th:href="@{/admin/approve}">Approve recipes</a>
+            </li>
         </ul>
         <form th:action="@{/logout}" class="form-inline" method="post">
             <div sec:authorize="isAuthenticated()">

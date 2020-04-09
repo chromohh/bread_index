@@ -11,17 +11,60 @@
     <title>create-user</title>
 </head>
 <body>
+<nav th:replace="navbar:: Navbar"></nav>
+
 <div class="container">
-    <form th:action="@{/create/user/}" method="post">
-        <label for="email">Email:</label>
-        <input class="form-control" type="email" name="email" id="email" placeholder="Enter your email..."/>
-        <label for="password">Password:</label>
-        <input class="form-control" type="username" name="username" id="username" placeholder="Enter your email..."/>
-        <label for="username">username:</label>
-        <input class="form-control" type="password" name="password" id="password" placeholder="Enter your password...">
-        <input sec:authorize="hasAuthority('ADMIN')") class="form-control" type="isAdmin" name="isAdmin" id="isAdmin" placeholder="isAdmin.">
-        <button class="btn btn-primary" type="submit">Submit</button>
-    </form>
+    <div class="card-body">
+        <form th:action="@{/create/user}" th:object="${form}" method="POST">
+            <div class="col-md-12 mb-3">
+                <label for="username">Username:</label>
+                <input class="form-control" type="text" id="username" placeholder="Enter your username" th:field="*{username}">
+                <div th:if="${#fields.hasErrors('username')}">
+                    <ul class="p-0" >
+                        <li  th:each="err : ${#fields.errors('username')}">
+                            <span class="form-error" th:text="${err}"></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-12 mb-3">
+                <label for="password">Password:</label>
+                <input class="form-control" type="password" id="password" placeholder="Enter your password" th:field="*{password}">
+                <div th:if="${#fields.hasErrors('password')}">
+                    <ul class="p-0" >
+                        <li  th:each="err : ${#fields.errors('password')}">
+                            <span class="form-error" th:text="${err}"></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-12 mb-3">
+                <label for="email">email:</label>
+                <input class="form-control" type="email" id="email" placeholder="Enter email" th:field="*{email}">
+                <div th:if="${#fields.hasErrors('email')}">
+                    <ul class="p-0" >
+                        <li  th:each="err : ${#fields.errors('email')}">
+                            <span class="form-error" th:text="${err}"></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-12 mb-3" sec:authorize="hasAuthority('ADMIN')">
+                <label>is admin?</label>
+                <input type="checkbox" value="true" th:field="*{admin}">
+                <div th:if="${#fields.hasErrors('admin')}">
+                    <ul class="p-0" >
+                        <li  th:each="err : ${#fields.errors('admin')}">
+                            <span class="form-error" th:text="${err}"></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="btn-group mb-1">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
 </div>
 
 </body>
