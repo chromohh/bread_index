@@ -22,16 +22,16 @@
                 <a class="btn btn-info" th:href="@{/create/user}">Register</a>
             </li>
             <li sec:authorize="hasAuthority('ADMIN')" class="nav-item">
-                <a class="btn btn-dark" th:href="@{/add/ingredient}">Add ingredient</a>
+                <a class="btn btn-dark" th:href="@{/admin/add/ingredient}">Add ingredient</a>
             </li>
             <li sec:authorize="hasAuthority('ADMIN')">
                     <a class="btn btn-dark" th:href="@{/admin/users}">View users</a>
             </li>
-            <li sec:authorize="hasAuthority('ADMIN') || hasAuthority('USER')">
+            <li sec:authorize="isAuthenticated()">
                 <a class="btn btn-dark" th:href="@{/users/request}">Request Bread</a>
             </li>
-            <li sec:authorize="hasAuthority('ADMIN')">
-                <a class="btn btn-dark" th:href="@{/admin/approve}">Approve recipes</a>
+            <li sec:authorize="isAuthenticated()">
+                <h5>|  Logged in as:  <span th:text="${#authentication.getPrincipal().getUsername()}"></span>  |</h5>
             </li>
         </ul>
         <form th:action="@{/logout}" class="form-inline" method="post">

@@ -1,10 +1,18 @@
 package chromo.ec.breadindex.controller;
 
 import chromo.ec.breadindex.data.*;
+import chromo.ec.breadindex.entity.Bread;
 import chromo.ec.breadindex.service.BreadServiceImpl;
 import chromo.ec.breadindex.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -29,4 +37,23 @@ public class AdminController {
         this.breadService = breadService;
         this.userService = userService;
     }
+
+    @GetMapping("/admin/bread/delete/{breadId}")
+    public String deleteBread(@PathVariable(value = "breadId") int breadId, @AuthenticationPrincipal UserDetails caller, Model model){
+
+        if(caller.getAuthorities().stream().anyMatch(auth -> ((GrantedAuthority) auth).getAuthority().equals("ADMIN"))){
+            breadRepo.deleteById(breadId);
+            return "redirect:/breads";
+        }
+
+        return "redirect:/accessdenied";
+    }
+
+
+
+    @GetMapping("/accessdenied")
+    public String getAccessDenied(){
+        return "access-denied";
+    }
+
 }

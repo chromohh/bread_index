@@ -37,20 +37,20 @@
                         <button type="submit" class="btn btn-primary">View</button>
                         </form>
                         <form sec:authorize="hasAuthority('USER') || hasAuthority('ADMIN')" method="post" action="#" th:action="@{/users/bread/favourite}">
-                            <input type="hidden" name="breadId" id="favouriteBread" th:value="${bread.breadId}"/>
+                            <input type="hidden" name="breadId" id="favouriteBread" th:value="${bread}"/>
                             <button type="submit" class="btn btn-primary">Favourite</button>
                         </form>
                         <form sec:authorize="hasAuthority('ADMIN')" method="post" action="#" th:action="@{/admin/bread/edit}">
-                            <input type="hidden" name="breadId" id="editBread" th:value="${bread.breadId}"/>
+                            <input type="hidden" name="breadId" id="editBread" th:value="${bread}"/>
                             <button type="submit" class="btn btn-dark">Edit</button>
                         </form>
-                        <form sec:authorize="hasAuthority('ADMIN')" method="post" action="#" th:action="@/admin/bread/delete}">
-                            <input type="hidden" name="breadId" id="aBreadDelete" th:value="${bread.breadId}"/>
+                        <form sec:authorize="hasAuthority('ADMIN')" action="#" th:action="@{/admin/bread/delete/{id}(id=${bread.breadId})}">
+                            <input type="hidden" name="breadId" id="aBreadDelete" th:value="${bread}"/>
                             <button type="submit" class="btn btn-outline-danger">Delete</button>
                         </form>
                         </form>
                         <form sec:authorize="hasAuthority('ADMIN')" method="post" action="#" th:action="@{/admin/bread/approve}">
-                            <input type="hidden" name="breadId" id="disapproveBreadApprove" th:value="${bread.breadId}"/>
+                            <input type="hidden" name="breadId" id="disapproveBreadApprove" th:value="${bread}"/>
                             <button type="submit" class="btn btn-success">Disapprove</button>
                         </form>
                     </td>
