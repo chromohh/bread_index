@@ -32,10 +32,27 @@
                     <td><span th:text="${bread.breadName}"></span></td>
                     <td><span th:text="${bread.author}"></span></td>
                     <td>
-                        <button type="button" class="btn btn-primary">view</button>
-                        <button sec:authorize="hasAuthority('ADMIN')" type="button" class="btn btn-dark">edit</button>
-                        <button sec:authorize="hasAuthority('ADMIN')" type="button" class="btn btn-danger">delete</button>
-                        <button sec:authorize="hasAuthority('ADMIN')" type="button" class="btn btn-danger">disapprove</button>
+                        <form method="post" action="#" th:action="@{/public/breads/{id}(id=${bread.breadId})}">
+                        <input type="hidden" name="breadId" id="breadView" th:href="${bread.breadId}"/>
+                        <button type="submit" class="btn btn-primary">View</button>
+                        </form>
+                        <form sec:authorize="hasAuthority('USER') || hasAuthority('ADMIN')" method="post" action="#" th:action="@{/users/bread/favourite}">
+                            <input type="hidden" name="breadId" id="favouriteBread" th:value="${bread.breadId}"/>
+                            <button type="submit" class="btn btn-primary">Favourite</button>
+                        </form>
+                        <form sec:authorize="hasAuthority('ADMIN')" method="post" action="#" th:action="@{/admin/bread/edit}">
+                            <input type="hidden" name="breadId" id="editBread" th:value="${bread.breadId}"/>
+                            <button type="submit" class="btn btn-dark">Edit</button>
+                        </form>
+                        <form sec:authorize="hasAuthority('ADMIN')" method="post" action="#" th:action="@/admin/bread/delete}">
+                            <input type="hidden" name="breadId" id="aBreadDelete" th:value="${bread.breadId}"/>
+                            <button type="submit" class="btn btn-outline-danger">Delete</button>
+                        </form>
+                        </form>
+                        <form sec:authorize="hasAuthority('ADMIN')" method="post" action="#" th:action="@{/admin/bread/approve}">
+                            <input type="hidden" name="breadId" id="disapproveBreadApprove" th:value="${bread.breadId}"/>
+                            <button type="submit" class="btn btn-success">Disapprove</button>
+                        </form>
                     </td>
                 </tr>
 
@@ -57,10 +74,14 @@
                         <td><span th:text="${bread.breadName}"></span></td>
                         <td><span th:text="${bread.author}"></span></td>
                         <td>
-                            <button type="button" class="btn btn-primary">view</button>
-                            <button type="button" class="btn btn-dark">edit</button>
-                            <button type="button" class="btn btn-danger">delete</button>
-                            <button type="button" class="btn btn-success">approve</button>
+                            <form method="post" action="#" th:action="@{/admin/bread/delete}">
+                                <input type="hidden" name="breadId" id="breadDelete" th:value="${bread.breadId}"/>
+                                <button type="submit" class="btn btn-outline-danger">Delete</button>
+                            </form>
+                            <form method="post" action="#" th:action="@{/admin/bread/approve}">
+                            <input type="hidden" name="breadId" id="breadApprove" th:value="${bread.breadId}"/>
+                            <button type="submit" class="btn btn-success">Approve</button>
+                            </form>
                         </td>
                     </tr>
                 </table>
