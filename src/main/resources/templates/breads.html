@@ -45,12 +45,12 @@
                             <button type="submit" class="btn btn-dark">Edit</button>
                         </form>
                         <form sec:authorize="hasAuthority('ADMIN')" action="#" th:action="@{/admin/bread/delete/{id}(id=${bread.breadId})}">
-                            <input type="hidden" name="breadId" id="aBreadDelete" th:value="${bread}"/>
+                            <input type="hidden" name="breadId" id="aBreadDelete" th:value="${bread}" />
                             <button type="submit" class="btn btn-outline-danger">Delete</button>
                         </form>
                         </form>
-                        <form sec:authorize="hasAuthority('ADMIN')" method="post" action="#" th:action="@{/admin/bread/approve}">
-                            <input type="hidden" name="breadId" id="disapproveBreadApprove" th:value="${bread}"/>
+                        <form sec:authorize="hasAuthority('ADMIN')" action="#" th:action="@{/admin/bread/approve/{id}(id=${bread.breadId})}">
+                            <input type="hidden" name="breadId" id="disapproveBreadApprove" th:value="${bread}" />
                             <button type="submit" class="btn btn-success">Disapprove</button>
                         </form>
                     </td>
@@ -74,12 +74,12 @@
                         <td><span th:text="${bread.breadName}"></span></td>
                         <td><span th:text="${bread.author}"></span></td>
                         <td>
-                            <form method="post" action="#" th:action="@{/admin/bread/delete}">
-                                <input type="hidden" name="breadId" id="breadDelete" th:value="${bread.breadId}"/>
+                            <form maction="#" th:action="@{/admin/bread/delete/{id}(id=${bread.breadId})}">
+                                <input type="hidden" name="breadId" id="breadDelete" th:value="${bread}"/>
                                 <button type="submit" class="btn btn-outline-danger">Delete</button>
                             </form>
-                            <form method="post" action="#" th:action="@{/admin/bread/approve}">
-                            <input type="hidden" name="breadId" id="breadApprove" th:value="${bread.breadId}"/>
+                            <form action="#" th:action="@{/admin/bread/approve/{id}(id=${bread.breadId})}">
+                            <input type="hidden" name="breadId" id="breadApprove" th:value="${bread}"/>
                             <button type="submit" class="btn btn-success">Approve</button>
                             </form>
                         </td>

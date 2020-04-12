@@ -49,11 +49,28 @@ public class AdminController {
         return "redirect:/accessdenied";
     }
 
+    @GetMapping("/admin/bread/approve/{breadId}")
+    public String approveBread(@PathVariable(value = "breadId") int breadId, @AuthenticationPrincipal UserDetails caller, Model model){
+
+        if(caller.getAuthorities().stream().anyMatch(auth -> ((GrantedAuthority) auth).getAuthority().equals("ADMIN"))){
+            if(breadRepo.findById(breadId).get().getIsApproved()){
+                Bread temp = breadRepo.findById(breadId).get();
+                temp.setIsApproved(false);
+                breadRepo.save(temp);
+            }else{Bread temp = breadRepo.findById(breadId).get();
+                temp.setIsApproved(true);
+                breadRepo.save(temp);}
+            return "redirect:/breads";
+        }
+
+        return "redirect:/accessdenied";
+    }
 
 
     @GetMapping("/accessdenied")
     public String getAccessDenied(){
         return "access-denied";
     }
+    
 
 }
