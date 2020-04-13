@@ -66,11 +66,32 @@ public class AdminController {
         return "redirect:/accessdenied";
     }
 
+    @GetMapping("/admin/users")
+    public String displayUsers(Model model, @AuthenticationPrincipal UserDetails caller){
+        if(caller.getAuthorities().stream().anyMatch(auth -> ((GrantedAuthority) auth).getAuthority().equals("ADMIN"))){
+          model.addAttribute("users", userRepo.findAll());
+          return "admin-users";
+        }
+        return "redirect:/accessdenied";
+    }
+
+    @GetMapping("/admin/users/delete/{userId}")
+    public String deleteUser(@PathVariable(value = "userId") int userId, @AuthenticationPrincipal UserDetails caller, Model model){
+
+        if(caller.getAuthorities().stream().anyMatch(auth -> ((GrantedAuthority) auth).getAuthority().equals("ADMIN"))){
+            userRepo.deleteById(userId);
+            return "redirect:/admin/users";
+        }
+
+        return "redirect:/accessdenied";
+    }
 
     @GetMapping("/accessdenied")
     public String getAccessDenied(){
         return "access-denied";
     }
-    
+
+
+
 
 }

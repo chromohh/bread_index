@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <script defer th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script defer th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script defer th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.css}">
+    <meta charset="UTF-8">
+    <title>breads</title>
+</head>
+<body>
+<nav th:replace="navbar:: Navbar"></nav>
+<div class="container">
+    <div class = "card-body">
+        <div th:if="${users.isEmpty()}">
+            <p>No users</p>
+        </div>
+        <div th:unless="${users.isEmpty()}">
+            <div class="col-md-11 mb-1">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Email</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Registration date</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr th:each="user : ${users}">
+                        <td><span th:text="${user.email}"></span></td>
+                        <td><span th:text="${user.userName}"></span></td>
+                        <td><span th:text="${user.regDate}"></span></td>
+                        <td>
+                            <form action="#" th:action="@{/admin/users/delete/{id}(id=${user.userId})}">
+                                <input type="hidden" name="userId" id="userDelete" th:href="${user.userId}"/>
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+
+                </table>
+                </tbody>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+</div>
+
+</body>
+</html>
