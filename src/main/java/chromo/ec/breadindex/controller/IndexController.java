@@ -70,7 +70,7 @@ public class IndexController {
             model.addAttribute("bread", opt.get());
             return "bread-view";
         }catch(Exception e){
-            return "/index";
+            return "redirect:/index";
         }
     }
 
