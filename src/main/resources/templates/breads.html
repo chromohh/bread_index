@@ -32,8 +32,8 @@
                     <td><span th:text="${bread.breadName}"></span></td>
                     <td><span th:text="${bread.author}"></span></td>
                     <td>
-                        <form method="post" action="#" th:action="@{/public/breads/{id}(id=${bread.breadId})}">
-                        <input type="hidden" name="breadId" id="breadView" th:href="${bread.breadId}"/>
+                        <form action="#" th:action="@{/public/breads/{id}(id=${bread.breadId})}">
+                        <input type="hidden" name="breadId" id="breadView" th:value="${bread}"/>
                         <button type="submit" class="btn btn-primary">View</button>
                         </form>
                         <form sec:authorize="hasAuthority('USER') || hasAuthority('ADMIN')" method="post" action="#" th:action="@{/users/bread/favourite}">
@@ -74,7 +74,7 @@
                         <td><span th:text="${bread.breadName}"></span></td>
                         <td><span th:text="${bread.author}"></span></td>
                         <td>
-                            <form maction="#" th:action="@{/admin/bread/delete/{id}(id=${bread.breadId})}">
+                            <form action="#" th:action="@{/admin/bread/delete/{id}(id=${bread.breadId})}">
                                 <input type="hidden" name="breadId" id="breadDelete" th:value="${bread}"/>
                                 <button type="submit" class="btn btn-outline-danger">Delete</button>
                             </form>

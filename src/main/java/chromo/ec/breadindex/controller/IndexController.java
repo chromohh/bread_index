@@ -2,6 +2,7 @@ package chromo.ec.breadindex.controller;
 
 import chromo.ec.breadindex.data.*;
 import chromo.ec.breadindex.dto.UserForm;
+import chromo.ec.breadindex.entity.Bread;
 import chromo.ec.breadindex.service.BreadServiceImpl;
 import chromo.ec.breadindex.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 public class IndexController {
@@ -62,10 +62,24 @@ public class IndexController {
         return "redirect:/login";
     }
 
+
+    @RequestMapping("/public/breads/{breadId}")
+    public String viewBread(@PathVariable(value = "breadId") String breadId, Model model){
+        try{
+            Optional<Bread> opt = breadRepo.findById(Integer.parseInt(breadId));
+            model.addAttribute("bread", opt.get());
+            return "bread-view";
+        }catch(Exception e){
+            return "/index";
+        }
+    }
+
     @GetMapping("/breads")
     public String findAll(Model model){
         model.addAttribute("breads", breadRepo.findAll());
         return "breads";
     }
+
+
 
 }

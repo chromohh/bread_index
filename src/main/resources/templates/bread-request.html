@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <script defer th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script defer th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script defer th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <meta charset="UTF-8">
+    <title>create-user</title>
+</head>
+<body>
+<nav th:replace="navbar:: Navbar"></nav>
+<!--inte färdig-->
+
+<div class="container">
+    <div class="card-body">
+        <form th:action="@{/users/request}" th:object="${form}" method="POST">
+            <div class="col-md-12 mb-3">
+                <label for="breadName">Username:</label>
+                <input class="form-control" type="text" id="breadName" placeholder="Enter your bread Name" th:field="*{breadName}">
+                <div th:if="${#fields.hasErrors('breadName')}">
+                    <ul class="p-0" >
+                        <li  th:each="err : ${#fields.errors('breadName')}">
+                            <span class="form-error" th:text="${err}"></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-12 mb-3">
+                <label for="password">Password:</label>
+                <input class="form-control" type="password" id="password" placeholder="Enter your password" th:field="*{password}">
+                <div th:if="${#fields.hasErrors('password')}">
+                    <ul class="p-0" >
+                        <li  th:each="err : ${#fields.errors('password')}">
+                            <span class="form-error" th:text="${err}"></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-12 mb-3">
+                <label for="email">email:</label>
+                <input class="form-control" type="email" id="email" placeholder="Enter email" th:field="*{email}">
+                <div th:if="${#fields.hasErrors('email')}">
+                    <ul class="p-0" >
+                        <li  th:each="err : ${#fields.errors('email')}">
+                            <span class="form-error" th:text="${err}"></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-12 mb-3" sec:authorize="hasAuthority('ADMIN')">
+                <label>is admin?</label>
+                <input type="checkbox" value="true" th:field="*{admin}">
+                <div th:if="${#fields.hasErrors('admin')}">
+                    <ul class="p-0" >
+                        <li  th:each="err : ${#fields.errors('admin')}">
+                            <span class="form-error" th:text="${err}"></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="btn-group mb-1">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
